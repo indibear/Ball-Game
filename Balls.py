@@ -4,7 +4,7 @@ import math
 
 GRAVITY = [0, 0.5]
 BLAST_RADIUS = 20
-SCREEN_WIDTH = 1440
+SCREEN_WIDTH = 1340
 SCREEN_HEIGHT = 600
 BALL_SIZE = 50
 
@@ -33,6 +33,9 @@ class Ball():
     def check_collisions(self):
         if (self.location[1] >= (SCREEN_HEIGHT - BALL_SIZE / 2)):
             self.velocity[1] = - self.velocity[1]
+
+        if (self.location[0] >= (SCREEN_WIDTH - BALL_SIZE / 2) or (self.location[0] <= 0)):
+            self.velocity[0] = - self.velocity[0]
         #subtract/add half ballsize from collision to ensure ball stays on screen
 
 
@@ -42,7 +45,7 @@ imagerect = myimage.get_rect()
 
 def initialise():
     pygame.init()
-    size=(1440,600)
+    size=(SCREEN_WIDTH, SCREEN_HEIGHT)
     screen=pygame.display.set_mode(size)
     pygame.font.init()
     myimage.convert_alpha()
