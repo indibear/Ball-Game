@@ -1,8 +1,10 @@
 import pygame
 import random
 import math
+import mathematicals
 
 GRAVITY = [0, 0.5]
+WIND = [1, 0]
 BLAST_RADIUS = 20
 SCREEN_WIDTH = 1340
 SCREEN_HEIGHT = 600
@@ -26,9 +28,12 @@ class Ball():
         self.location[1] = self.location[1] + self.velocity[1]
 
     def apply_forces(self):
-        self.velocity[0] = GRAVITY[0] + self.velocity[0]
-        self.velocity[1] = GRAVITY[1] + self.velocity[1]
+        self.velocity = mathematicals.add_vectors(GRAVITY, self.velocity)
+        if (self.location[1] <= 200):
+            self.velocity = mathematicals.add_vectors(WIND, self.velocity)
         self.move()
+
+
 
     def check_collisions(self):
         if (self.location[1] >= (SCREEN_HEIGHT - BALL_SIZE / 2)):
