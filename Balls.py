@@ -36,7 +36,8 @@ class Ball():
 
 
     def check_collisions(self):
-        if (self.location[1] >= (SCREEN_HEIGHT - BALL_SIZE / 2)):
+        distance_to_floor = (SCREEN_HEIGHT - BALL_SIZE / 2) - self.location[1]
+        if (self.velocity[1] > distance_to_floor):
             self.velocity[1] = - self.velocity[1]
 
         if (self.location[0] >= (SCREEN_WIDTH - BALL_SIZE / 2) or (self.location[0] <= 0)):
