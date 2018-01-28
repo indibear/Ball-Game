@@ -3,13 +3,13 @@ import random
 import math
 import mathematicals
 
-GRAVITY = [0, 0.5]
-WIND = [1, 0]
-BLAST_RADIUS = 20
-SCREEN_WIDTH = 1340
+GRAVITY = [0, 1.3] #0.5
+WIND = [1, 0] #1, 0
+BLAST_RADIUS = 30 #20
+SCREEN_WIDTH = 1340 #1340
 SCREEN_HEIGHT = 600
 BALL_SIZE = 50
-
+NUMBER_OF_BALLS = 6
 
 class Ball():
     def __init__(self):
@@ -24,8 +24,8 @@ class Ball():
         return pygame.Color (red, green, blue)
 
     def move(self):
-        self.location[0] = self.location[0] + self.velocity[0]
         self.location[1] = self.location[1] + self.velocity[1]
+        self.location[0] = self.location[0] + self.velocity[0]
 
     def apply_forces(self):
         self.velocity = mathematicals.add_vectors(GRAVITY, self.velocity)
@@ -45,7 +45,7 @@ class Ball():
 
         if (self.location[0] >= (SCREEN_WIDTH - BALL_SIZE / 2) or (self.location[0] <= 0)):
             self.velocity[0] = - self.velocity[0]
-        #subtract/add half ballsize from collision to ensure ball stays on screen
+        #subtract half ballsize from collision to ensure ball stays on screen
 
 
 
@@ -79,7 +79,7 @@ def run_game():
     clock = pygame.time.Clock()
     carry_on = True
     balls = []
-    for i in range(50):
+    for i in range(NUMBER_OF_BALLS):
         ball = Ball()
         balls.append(ball)
 
