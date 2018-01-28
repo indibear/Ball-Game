@@ -24,17 +24,8 @@ class Ball():
         return pygame.Color (red, green, blue)
 
     def move(self):
-        distance_to_floor = (SCREEN_HEIGHT - BALL_SIZE / 2) - self.location[1]
-        if (self.velocity[1] > distance_to_floor):
-            self.location[1] = (SCREEN_HEIGHT - BALL_SIZE / 2) - (self.velocity[1] - distance_to_floor)
-            self.velocity[1] = - self.velocity[1]
-            #reverse velocity, calculate the px we need to be above gorund in next frame
-        else:
-            self.location[1] = self.location[1] + self.velocity[1]
-
+        self.location[1] = self.location[1] + self.velocity[1]
         self.location[0] = self.location[0] + self.velocity[0]
-
-
 
     def apply_forces(self):
         self.velocity = mathematicals.add_vectors(GRAVITY, self.velocity)
@@ -45,6 +36,13 @@ class Ball():
 
 
     def check_collisions(self):
+        distance_to_floor = (SCREEN_HEIGHT - BALL_SIZE / 2) - self.location[1]
+        if (self.velocity[1] > distance_to_floor):
+            # After this frame, we want the velocity to be exactly reversed
+            self.velocity[1] = - self.velocity[1]
+            # apply_forces() will remove this again later in the frame
+            self.velocity[1] -= GRAVITY[1]
+
         if (self.location[0] >= (SCREEN_WIDTH - BALL_SIZE / 2) or (self.location[0] <= 0)):
             self.velocity[0] = - self.velocity[0]
         #subtract half ballsize from collision to ensure ball stays on screen
