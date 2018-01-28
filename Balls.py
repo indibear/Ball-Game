@@ -38,7 +38,10 @@ class Ball():
     def check_collisions(self):
         distance_to_floor = (SCREEN_HEIGHT - BALL_SIZE / 2) - self.location[1]
         if (self.velocity[1] > distance_to_floor):
+            # After this frame, we want the velocity to be exactly reversed
             self.velocity[1] = - self.velocity[1]
+            # apply_forces() will remove this again later in the frame
+            self.velocity[1] -= GRAVITY[1]
 
         if (self.location[0] >= (SCREEN_WIDTH - BALL_SIZE / 2) or (self.location[0] <= 0)):
             self.velocity[0] = - self.velocity[0]
